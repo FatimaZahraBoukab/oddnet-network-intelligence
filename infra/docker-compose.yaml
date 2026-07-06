@@ -46,3 +46,29 @@ services:
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092  
+
+# ============================================
+  # SPARK MASTER — le "chef" qui coordonne le traitement
+  # ============================================
+  spark-master:
+    image: bitnamilegacy/spark:3.5
+    container_name: spark-master
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - "8081:8080"
+      - "7077:7077"
+
+  # ============================================
+  # SPARK WORKER — celui qui exécute réellement le travail
+  # ============================================
+  spark-worker:
+    image: bitnamilegacy/spark:3.5
+    container_name: spark-worker
+    depends_on:
+      - spark-master
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=2G
+      - SPARK_WORKER_CORES=2
