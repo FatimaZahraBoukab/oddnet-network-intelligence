@@ -53,11 +53,14 @@ services:
   spark-master:
     image: bitnamilegacy/spark:3.5
     container_name: spark-master
+    user: "root"
     environment:
       - SPARK_MODE=master
     ports:
       - "8081:8080"
       - "7077:7077"
+    volumes:
+      - ../processing:/opt/processing   # NOUVEAU : pont vers ton dossier processing/
 
   # ============================================
   # SPARK WORKER — celui qui exécute réellement le travail
@@ -65,6 +68,7 @@ services:
   spark-worker:
     image: bitnamilegacy/spark:3.5
     container_name: spark-worker
+    user: "root"
     depends_on:
       - spark-master
     environment:
@@ -72,3 +76,5 @@ services:
       - SPARK_MASTER_URL=spark://spark-master:7077
       - SPARK_WORKER_MEMORY=2G
       - SPARK_WORKER_CORES=2
+    volumes:
+      - ../processing:/opt/processing   # NOUVEAU : même chose pour le worker
