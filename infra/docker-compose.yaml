@@ -78,3 +78,22 @@ services:
       - SPARK_WORKER_CORES=2
     volumes:
       - ../processing:/opt/processing   # NOUVEAU : même chose pour le worker
+
+# ============================================
+  # MINIO — stockage objet façon S3, en local
+  # ============================================
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    ports:
+      - "9000:9000"   # API S3 (utilisée par Spark pour lire/écrire)
+      - "9001:9001"   # Interface web d'administration
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data   # stockage persistant (survit aux redémarrages)
+
+volumes:
+  minio_data:   # déclaration du volume nommé utilisé ci-dessus
