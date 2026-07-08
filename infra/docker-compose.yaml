@@ -12,6 +12,10 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
     ports:
       - "2181:2181"
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper/data
+      - zookeeper_log:/var/lib/zookeeper/log
+    
 
   # ============================================
   # KAFKA — le broker qui reçoit/stocke/distribue nos données
@@ -31,6 +35,8 @@ services:
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_INTERNAL://0.0.0.0:29092
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - kafka_data:/var/lib/kafka/data
 
   # ============================================
   # KAFKA UI — interface visuelle pour voir les topics/messages
@@ -97,3 +103,6 @@ services:
 
 volumes:
   minio_data:   # déclaration du volume nommé utilisé ci-dessus
+  zookeeper_data:
+  zookeeper_log:
+  kafka_data:
