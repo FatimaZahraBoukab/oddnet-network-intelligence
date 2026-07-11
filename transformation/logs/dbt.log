@@ -1,0 +1,31 @@
+[0m22:42:03.204377 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x720e96545210>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x720e96443590>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x720e96544ed0>]}
+
+
+============================== 22:42:03.210526 | e85cc5b8-cb5a-412e-bcb7-a2c46d0a587b ==============================
+[0m22:42:03.210526 [info ] [MainThread]: Running with dbt=1.11.12
+[0m22:42:03.211050 [debug] [MainThread]: running dbt with arguments {'no_print': 'None', 'invocation_command': 'dbt init oddnet_transformation', 'warn_error': 'None', 'debug': 'False', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'static_parser': 'True', 'target_path': 'None', 'log_cache_events': 'False', 'use_experimental_parser': 'False', 'version_check': 'True', 'use_colors': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'profiles_dir': '/root/.dbt', 'empty': 'None', 'write_json': 'True', 'log_path': 'logs', 'quiet': 'False', 'indirect_selection': 'eager', 'printer_width': '80', 'send_anonymous_usage_stats': 'True', 'log_format': 'default', 'introspect': 'True'}
+[0m22:42:03.221163 [info ] [MainThread]: Creating dbt configuration folder at /root/.dbt
+[0m22:42:03.223453 [debug] [MainThread]: Starter project path: /usr/local/lib/python3.11/site-packages/dbt/include/starter_project
+[0m22:42:03.228862 [info ] [MainThread]: 
+Your new dbt project "oddnet_transformation" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m22:42:03.229323 [info ] [MainThread]: Setting up your profile.
+[0m22:43:08.505486 [info ] [MainThread]: Profile oddnet_transformation written to /root/.dbt/profiles.yml using target's sample configuration. Once updated, you'll be able to start developing with dbt.
+[0m22:43:08.507597 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 65.37121, "process_in_blocks": "1280", "process_kernel_time": 0.4339, "process_mem_max_rss": "134636", "process_out_blocks": "2272", "process_user_time": 1.960586}
+[0m22:43:08.508666 [debug] [MainThread]: Command `dbt init` succeeded at 22:43:08.508376 after 65.37 seconds
+[0m22:43:08.509392 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x720e96538f10>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x720e964cc810>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x720e9aec1410>]}
+[0m22:43:08.510019 [debug] [MainThread]: Flushing usage events
+[0m22:43:09.653651 [debug] [MainThread]: An error was encountered while trying to flush usage events
