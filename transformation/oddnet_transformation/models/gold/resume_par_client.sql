@@ -1,3 +1,9 @@
+{{
+    config(
+        post_hook="COPY (SELECT * FROM {{ this }}) TO 's3://gold/resume_par_client.parquet' (FORMAT PARQUET);"
+    )
+}}
+
 -- Ce modele lit les donnees Silver (deja agregees par Spark)
 -- et calcule un resume par client, pret pour les rapports.
 
