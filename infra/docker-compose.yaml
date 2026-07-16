@@ -166,9 +166,40 @@ services:
       - ../orchestration/dags:/opt/airflow/dags
     command: scheduler
 
+# ============================================
+  # POSTGRES DASHBOARD — donnees pretes pour Grafana
+  # ============================================
+  postgres-dashboard:
+    image: postgres:15
+    container_name: postgres-dashboard
+    environment:
+      POSTGRES_USER: dashboard
+      POSTGRES_PASSWORD: dashboard
+      POSTGRES_DB: oddnet_dashboard
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_dashboard_data:/var/lib/postgresql/data
+
+
+  # ============================================
+  # GRAFANA — dashboards visuels
+  # ============================================
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+    volumes:
+      - grafana_data:/var/lib/grafana
+
 volumes:
   minio_data:   # déclaration du volume nommé utilisé ci-dessus
   kafka_data:
   postgres_airflow_data:
-
+  postgres_dashboard_data:
+  grafana_data:
 
