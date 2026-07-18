@@ -107,14 +107,13 @@ services:
   # AIRFLOW INIT — initialise la base au premier lancement
   # ============================================
   airflow-init:
-    image: apache/airflow:2.9.0
+    image: oddnet-airflow
     container_name: airflow-init
     depends_on:
       - postgres-airflow
     environment:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow/airflow
-      _PIP_ADDITIONAL_REQUIREMENTS: "boto3" 
     entrypoint: /bin/bash
     command:
       - -c
@@ -132,7 +131,7 @@ services:
   # AIRFLOW WEBSERVER — interface web
   # ============================================
   airflow-webserver:
-    image: apache/airflow:2.9.0
+    image: oddnet-airflow
     container_name: airflow-webserver
     depends_on:
       - postgres-airflow
@@ -141,7 +140,6 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-      _PIP_ADDITIONAL_REQUIREMENTS: "boto3" 
     ports:
       - "8082:8080"
     volumes:
@@ -152,7 +150,7 @@ services:
   # AIRFLOW SCHEDULER — le "cerveau" qui déclenche les tâches
   # ============================================
   airflow-scheduler:
-    image: apache/airflow:2.9.0
+    image: oddnet-airflow
     container_name: airflow-scheduler
     depends_on:
       - postgres-airflow
@@ -161,7 +159,6 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres-airflow/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
-      _PIP_ADDITIONAL_REQUIREMENTS: "boto3" 
     volumes:
       - ../orchestration/dags:/opt/airflow/dags
     command: scheduler

@@ -4,7 +4,7 @@ from sklearn.ensemble import IsolationForest
 STORAGE_OPTIONS = {
     "key": "minioadmin",
     "secret": "minioadmin123",
-    "client_kwargs": {"endpoint_url": "http://localhost:9000"}
+    "client_kwargs": {"endpoint_url": "http://minio:9000"}
 }
 
 

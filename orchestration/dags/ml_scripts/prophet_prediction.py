@@ -7,7 +7,7 @@ logging.getLogger("cmdstanpy").setLevel(logging.WARNING)
 STORAGE_OPTIONS = {
     "key": "minioadmin",
     "secret": "minioadmin123",
-    "client_kwargs": {"endpoint_url": "http://localhost:9000"}
+    "client_kwargs": {"endpoint_url": "http://minio:9000"}
 }
 
 METRIQUES = {
