@@ -62,7 +62,7 @@ def theme_facettes(fig, hauteur=600):
 # ============================================================
 @st.cache_resource
 def get_connection():
-    return create_engine("postgresql://dashboard:dashboard@localhost:5433/oddnet_dashboard")
+    return create_engine("postgresql://dashboard:dashboard@postgres-dashboard:5432/oddnet_dashboard")
 
 @st.cache_data(ttl=60)
 def charger(table):

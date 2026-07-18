@@ -193,6 +193,14 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
 
+  streamlit:
+    build:
+      context: ../dashboards/streamlit
+    container_name: streamlit
+    ports:
+      - "8501:8501"
+    restart: always
+
 volumes:
   minio_data:   # déclaration du volume nommé utilisé ci-dessus
   kafka_data:
