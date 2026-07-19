@@ -55,7 +55,7 @@ services:
       - "7077:7077"
     volumes:
       - ../processing:/opt/processing   # NOUVEAU : pont vers ton dossier processing/
-
+    restart: always
   # ============================================
   # SPARK WORKER — celui qui exécute réellement le travail
   # ============================================
@@ -72,6 +72,27 @@ services:
       - SPARK_WORKER_CORES=2
     volumes:
       - ../processing:/opt/processing   # NOUVEAU : même chose pour le worker
+
+  spark-job-runner:
+    image: bitnamilegacy/spark:3.5
+    container_name: spark-job-runner
+    user: "root"
+    depends_on:
+      - spark-master
+      - kafka
+      - minio
+    volumes:
+      - ../processing:/opt/processing
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        sleep 20 &&
+        spark-submit \
+          --conf spark.jars.ivy=/tmp/.ivy2 \
+          --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.5.0,org.apache.hadoop:hadoop-aws:3.3.4,io.delta:delta-spark_2.12:3.0.0 \
+          /opt/processing/spark_streaming.py
+    restart: always
 
 # ============================================
   # MINIO — stockage objet façon S3, en local
