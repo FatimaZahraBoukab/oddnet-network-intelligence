@@ -1,5 +1,6 @@
 from airflow import DAG
 from airflow.operators.python import PythonOperator
+from airflow.operators.bash import BashOperator
 from datetime import datetime
 import sys
 import os
@@ -18,6 +19,15 @@ with DAG(
     catchup=False
 ) as dag:
 
+    tache_dbt = BashOperator(
+        task_id="dbt_run",
+        bash_command=(
+            "cd /opt/airflow/dags/dbt_project && "
+            "DBT_PROFILES_DIR=/opt/airflow/dags/dbt_profiles "
+            "dbt run --project-dir /opt/airflow/dags/dbt_project"
+        )
+    )
+
     tache_isolation_forest = PythonOperator(
         task_id="isolation_forest",
         python_callable=executer_isolation_forest
@@ -33,6 +43,6 @@ with DAG(
         python_callable=executer_alimentation_dashboard
     )
 
-    # L'alimentation doit se faire APRES les 2 calculs ML,
-    # pour que Grafana affiche les resultats les plus recents
-    [tache_isolation_forest, tache_prophet] >> tache_alimentation
+    # Ordre logique : dbt cree Gold en premier,
+    # puis ML tourne, puis on alimente Grafana avec tout
+    tache_dbt >> [tache_isolation_forest, tache_prophet] >> tache_alimentation
