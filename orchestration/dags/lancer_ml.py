@@ -8,6 +8,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "ml_scripts"))
 
 from isolation_forest import executer_isolation_forest
 from prophet_prediction import executer_prophet
+from alimenter_dashboard import executer_alimentation_dashboard
 
 
 with DAG(
@@ -26,3 +27,12 @@ with DAG(
         task_id="prophet_prediction",
         python_callable=executer_prophet
     )
+
+    tache_alimentation = PythonOperator(
+        task_id="alimenter_dashboard",
+        python_callable=executer_alimentation_dashboard
+    )
+
+    # L'alimentation doit se faire APRES les 2 calculs ML,
+    # pour que Grafana affiche les resultats les plus recents
+    [tache_isolation_forest, tache_prophet] >> tache_alimentation

@@ -4,7 +4,7 @@ from sqlalchemy import create_engine
 STORAGE_OPTIONS = {
     "key": "minioadmin",
     "secret": "minioadmin123",
-    "client_kwargs": {"endpoint_url": "http://localhost:9000"}
+    "client_kwargs": {"endpoint_url": "http://minio:9000"}
 }
 
 
@@ -13,7 +13,7 @@ def executer_alimentation_dashboard():
     Copie les donnees de MinIO (Silver, Gold, ML) vers PostgreSQL,
     pour que Grafana affiche des donnees a jour.
     """
-    engine = create_engine("postgresql://dashboard:dashboard@localhost:5433/oddnet_dashboard")
+    engine = create_engine("postgresql://dashboard:dashboard@postgres-dashboard:5432/oddnet_dashboard")
 
     print("Chargement de Silver...")
     df_silver = pd.read_parquet("s3://silver/network-kpis-agrege/", storage_options=STORAGE_OPTIONS)
