@@ -155,7 +155,3 @@ python simulateur.py
 - **Prophet** : prédiction à 30 minutes, un modèle par équipement × par métrique, avec système d'alerte configurable par seuil
 
 
-
-## 📄 Licence
-
-Projet académique réalisé dans le cadre d'un stage de fin d'études.
